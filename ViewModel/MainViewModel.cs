@@ -9,9 +9,16 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        public bool Isloaded = false;
         public MainViewModel()
         {
-            MessageBox.Show("Đã vào trong main");
+            if (!Isloaded)
+            {
+                Isloaded = true;
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+            }
+            
         }
     }
 }
