@@ -10,22 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Nhom13_Quan_ly_kho_hang.ViewModel;
 
-namespace Nhom13_Quan_ly_kho_hang.UserControlN13
+namespace Nhom13_Quan_ly_kho_hang
 {
     /// <summary>
-    /// Interaction logic for ControlBarUC.xaml
+    /// Interaction logic for UnitWindow.xaml
     /// </summary>
-    public partial class ControlBarUC : UserControl
+    public partial class UnitWindow : Window
     {
-        public ControlBarViewModel Viewmodel { get; set; }
-        public ControlBarUC()
+        public UnitWindow()
         {
             InitializeComponent();
-            this.DataContext = Viewmodel = new ControlBarViewModel();
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

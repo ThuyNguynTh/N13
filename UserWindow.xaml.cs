@@ -10,22 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Nhom13_Quan_ly_kho_hang.ViewModel;
 
-namespace Nhom13_Quan_ly_kho_hang.UserControlN13
+namespace Nhom13_Quan_ly_kho_hang
 {
     /// <summary>
-    /// Interaction logic for ControlBarUC.xaml
+    /// Interaction logic for UserWindow.xaml
     /// </summary>
-    public partial class ControlBarUC : UserControl
+    public partial class UserWindow : Window
     {
-        public ControlBarViewModel Viewmodel { get; set; }
-        public ControlBarUC()
+        public UserWindow()
         {
             InitializeComponent();
-            this.DataContext = Viewmodel = new ControlBarViewModel();
         }
     }
 }
