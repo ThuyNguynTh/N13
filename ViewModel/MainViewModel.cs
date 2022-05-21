@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nhom13_Quan_ly_kho_hang.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,6 +75,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                 wd.ShowDialog();
             }
            );
+            MessageBox.Show(DataProvider.Ins.DB.Users.First().DisplayName);
         }
     }
 }
