@@ -48,7 +48,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                      p.Close();
                  }
 
-                 p.Show();
+                
              }
              );
 

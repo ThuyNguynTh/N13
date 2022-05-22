@@ -22,6 +22,8 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         public string Password { get { return _Password; } set { _Password = value; OnPropertyChanged(); } }
 
         public ICommand LoginCommand { get; set; }
+
+        public ICommand CloseCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
         public LoginViewModel()
@@ -33,9 +35,15 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
               
             }
             );
+            CloseCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
+
+            }
+            );
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
-                Password = p.Password
+                Password = p.Password;
 
             }
             );

@@ -69,6 +69,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Button Grid.Column="0"
+                            IsDefault="True"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
                             Command="{Binding LoginCommand}"
@@ -77,6 +78,8 @@
                     <Button Grid.Column="1"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
+                            Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}"
                             ToolTip="Resource name: MaterialDesignRaisedButton" Content="Thoát"></Button>
                 </Grid>
             </Grid>
