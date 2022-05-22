@@ -25,16 +25,15 @@ namespace Nhom13_Quan_ly_kho_hang.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Input> Input { get; set; }
-        public virtual DbSet<InputInfo> InputInfo { get; set; }
-        public virtual DbSet<Object> Object { get; set; }
-        public virtual DbSet<Output> Output { get; set; }
-        public virtual DbSet<OutputInfo> OutputInfo { get; set; }
-        public virtual DbSet<Suplier> Suplier { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Unit> Unit { get; set; }
-        public virtual DbSet<UserRole> UserRole { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Input> Inputs { get; set; }
+        public virtual DbSet<InputInfo> InputInfoes { get; set; }
+        public virtual DbSet<Object> Objects { get; set; }
+        public virtual DbSet<Output> Outputs { get; set; }
+        public virtual DbSet<OutputInfo> OutputInfoes { get; set; }
+        public virtual DbSet<Suplier> Supliers { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

@@ -17,8 +17,8 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Object()
         {
-            this.InputInfo = new HashSet<InputInfo>();
-            this.OutputInfo = new HashSet<OutputInfo>();
+            this.InputInfoes = new HashSet<InputInfo>();
+            this.OutputInfoes = new HashSet<OutputInfo>();
         }
     
         public string Id { get; set; }
@@ -29,10 +29,10 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         public string BarCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InputInfo> InputInfo { get; set; }
+        public virtual ICollection<InputInfo> InputInfoes { get; set; }
         public virtual Suplier Suplier { get; set; }
         public virtual Unit Unit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutputInfo> OutputInfo { get; set; }
+        public virtual ICollection<OutputInfo> OutputInfoes { get; set; }
     }
 }

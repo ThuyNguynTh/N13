@@ -15,7 +15,7 @@ namespace Nhom13_Quan_ly_kho_hang.Model
     public partial class OutputInfo
     {
         public string Id { get; set; }
-        public string Idobject { get; set; }
+        public string IdObject { get; set; }
         public string IdOutputInfo { get; set; }
         public int IdCustomer { get; set; }
         public Nullable<int> Count { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuanLyKhoN13Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QuanLyKhoN13Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -59,7 +59,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Idobject" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IdObject" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdOutputInfo" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdCustomer" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
@@ -76,16 +76,6 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="MoreInfo" Type="nvarchar(max)" />
           <Property Name="ContractDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -171,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OutputInf__Idobj__3D5E1FD2">
+        <Association Name="FK__OutputInf__IdObj__3D5E1FD2">
           <End Role="Object" Type="Self.Object" Multiplicity="1" />
           <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -179,7 +169,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="OutputInfo">
-              <PropertyRef Name="Idobject" />
+              <PropertyRef Name="IdObject" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -215,7 +205,6 @@
           <EntitySet Name="Output" EntityType="Self.Output" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OutputInfo" EntityType="Self.OutputInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suplier" EntityType="Self.Suplier" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -239,7 +228,7 @@
             <End Role="Customer" EntitySet="Customer" />
             <End Role="OutputInfo" EntitySet="OutputInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__OutputInf__Idobj__3D5E1FD2" Association="Self.FK__OutputInf__Idobj__3D5E1FD2">
+          <AssociationSet Name="FK__OutputInf__IdObj__3D5E1FD2" Association="Self.FK__OutputInf__IdObj__3D5E1FD2">
             <End Role="Object" EntitySet="Object" />
             <End Role="OutputInfo" EntitySet="OutputInfo" />
           </AssociationSet>
@@ -252,11 +241,54 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyKhoN13Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuanLyKhoN13Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="QuanLyKhoN13Model.Customer" />
+          <EntitySet Name="Inputs" EntityType="QuanLyKhoN13Model.Input" />
+          <EntitySet Name="InputInfoes" EntityType="QuanLyKhoN13Model.InputInfo" />
+          <EntitySet Name="Objects" EntityType="QuanLyKhoN13Model.Object" />
+          <EntitySet Name="Outputs" EntityType="QuanLyKhoN13Model.Output" />
+          <EntitySet Name="OutputInfoes" EntityType="QuanLyKhoN13Model.OutputInfo" />
+          <EntitySet Name="Supliers" EntityType="QuanLyKhoN13Model.Suplier" />
+          <EntitySet Name="Units" EntityType="QuanLyKhoN13Model.Unit" />
+          <EntitySet Name="UserRoles" EntityType="QuanLyKhoN13Model.UserRole" />
+          <EntitySet Name="Users" EntityType="QuanLyKhoN13Model.User" />
+          <AssociationSet Name="FK__OutputInf__IdCus__3C69FB99" Association="QuanLyKhoN13Model.FK__OutputInf__IdCus__3C69FB99">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="OutputInfo" EntitySet="OutputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InputInfo__IdInp__38996AB5" Association="QuanLyKhoN13Model.FK__InputInfo__IdInp__38996AB5">
+            <End Role="Input" EntitySet="Inputs" />
+            <End Role="InputInfo" EntitySet="InputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InputInfo__IdObj__398D8EEE" Association="QuanLyKhoN13Model.FK__InputInfo__IdObj__398D8EEE">
+            <End Role="Object" EntitySet="Objects" />
+            <End Role="InputInfo" EntitySet="InputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Object__IdSuplie__3A81B327" Association="QuanLyKhoN13Model.FK__Object__IdSuplie__3A81B327">
+            <End Role="Suplier" EntitySet="Supliers" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Object__IdUnit__3B75D760" Association="QuanLyKhoN13Model.FK__Object__IdUnit__3B75D760">
+            <End Role="Unit" EntitySet="Units" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OutputInf__IdObj__3D5E1FD2" Association="QuanLyKhoN13Model.FK__OutputInf__IdObj__3D5E1FD2">
+            <End Role="Object" EntitySet="Objects" />
+            <End Role="OutputInfo" EntitySet="OutputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OutputInfo__Id__2E1BDC42" Association="QuanLyKhoN13Model.FK__OutputInfo__Id__2E1BDC42">
+            <End Role="Output" EntitySet="Outputs" />
+            <End Role="OutputInfo" EntitySet="OutputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__IdRole__3E52440B" Association="QuanLyKhoN13Model.FK__Users__IdRole__3E52440B">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -268,66 +300,66 @@
           <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MoreInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContractDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="OutputInfo" Relationship="Self.FK__OutputInf__IdCus__3C69FB99" FromRole="Customer" ToRole="OutputInfo" />
+          <NavigationProperty Name="OutputInfoes" Relationship="QuanLyKhoN13Model.FK__OutputInf__IdCus__3C69FB99" FromRole="Customer" ToRole="OutputInfo" />
         </EntityType>
         <EntityType Name="Input">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DateInput" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="InputInfo" Relationship="Self.FK__InputInfo__IdInp__38996AB5" FromRole="Input" ToRole="InputInfo" />
+          <NavigationProperty Name="InputInfoes" Relationship="QuanLyKhoN13Model.FK__InputInfo__IdInp__38996AB5" FromRole="Input" ToRole="InputInfo" />
         </EntityType>
         <EntityType Name="InputInfo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdObject" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdInput" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdObject" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdInput" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Count" Type="Int32" />
           <Property Name="InputPrice" Type="Double" />
           <Property Name="OutputPrice" Type="Double" />
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Input" Relationship="Self.FK__InputInfo__IdInp__38996AB5" FromRole="InputInfo" ToRole="Input" />
-          <NavigationProperty Name="Object" Relationship="Self.FK__InputInfo__IdObj__398D8EEE" FromRole="InputInfo" ToRole="Object" />
+          <NavigationProperty Name="Input" Relationship="QuanLyKhoN13Model.FK__InputInfo__IdInp__38996AB5" FromRole="InputInfo" ToRole="Input" />
+          <NavigationProperty Name="Object" Relationship="QuanLyKhoN13Model.FK__InputInfo__IdObj__398D8EEE" FromRole="InputInfo" ToRole="Object" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IdUnit" Type="Int32" Nullable="false" />
           <Property Name="IdSuplier" Type="Int32" Nullable="false" />
           <Property Name="ORCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BarCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="InputInfo" Relationship="Self.FK__InputInfo__IdObj__398D8EEE" FromRole="Object" ToRole="InputInfo" />
-          <NavigationProperty Name="Suplier" Relationship="Self.FK__Object__IdSuplie__3A81B327" FromRole="Object" ToRole="Suplier" />
-          <NavigationProperty Name="Unit" Relationship="Self.FK__Object__IdUnit__3B75D760" FromRole="Object" ToRole="Unit" />
-          <NavigationProperty Name="OutputInfo" Relationship="Self.FK__OutputInf__Idobj__3D5E1FD2" FromRole="Object" ToRole="OutputInfo" />
+          <NavigationProperty Name="InputInfoes" Relationship="QuanLyKhoN13Model.FK__InputInfo__IdObj__398D8EEE" FromRole="Object" ToRole="InputInfo" />
+          <NavigationProperty Name="Suplier" Relationship="QuanLyKhoN13Model.FK__Object__IdSuplie__3A81B327" FromRole="Object" ToRole="Suplier" />
+          <NavigationProperty Name="Unit" Relationship="QuanLyKhoN13Model.FK__Object__IdUnit__3B75D760" FromRole="Object" ToRole="Unit" />
+          <NavigationProperty Name="OutputInfoes" Relationship="QuanLyKhoN13Model.FK__OutputInf__IdObj__3D5E1FD2" FromRole="Object" ToRole="OutputInfo" />
         </EntityType>
         <EntityType Name="Output">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DateOutput" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="OutputInfo" Relationship="Self.FK__OutputInfo__Id__2E1BDC42" FromRole="Output" ToRole="OutputInfo" />
+          <NavigationProperty Name="OutputInfo" Relationship="QuanLyKhoN13Model.FK__OutputInfo__Id__2E1BDC42" FromRole="Output" ToRole="OutputInfo" />
         </EntityType>
         <EntityType Name="OutputInfo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Idobject" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdOutputInfo" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdObject" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdOutputInfo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdCustomer" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__OutputInf__IdCus__3C69FB99" FromRole="OutputInfo" ToRole="Customer" />
-          <NavigationProperty Name="Object" Relationship="Self.FK__OutputInf__Idobj__3D5E1FD2" FromRole="OutputInfo" ToRole="Object" />
-          <NavigationProperty Name="Output" Relationship="Self.FK__OutputInfo__Id__2E1BDC42" FromRole="OutputInfo" ToRole="Output" />
+          <NavigationProperty Name="Customer" Relationship="QuanLyKhoN13Model.FK__OutputInf__IdCus__3C69FB99" FromRole="OutputInfo" ToRole="Customer" />
+          <NavigationProperty Name="Object" Relationship="QuanLyKhoN13Model.FK__OutputInf__IdObj__3D5E1FD2" FromRole="OutputInfo" ToRole="Object" />
+          <NavigationProperty Name="Output" Relationship="QuanLyKhoN13Model.FK__OutputInfo__Id__2E1BDC42" FromRole="OutputInfo" ToRole="Output" />
         </EntityType>
         <EntityType Name="Suplier">
           <Key>
@@ -340,17 +372,7 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MoreInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContractDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Object" Relationship="Self.FK__Object__IdSuplie__3A81B327" FromRole="Suplier" ToRole="Object" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Objects" Relationship="QuanLyKhoN13Model.FK__Object__IdSuplie__3A81B327" FromRole="Suplier" ToRole="Object" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -358,7 +380,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Object" Relationship="Self.FK__Object__IdUnit__3B75D760" FromRole="Unit" ToRole="Object" />
+          <NavigationProperty Name="Objects" Relationship="QuanLyKhoN13Model.FK__Object__IdUnit__3B75D760" FromRole="Unit" ToRole="Object" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -366,9 +388,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Users__IdRole__3E52440B" FromRole="UserRole" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="QuanLyKhoN13Model.FK__Users__IdRole__3E52440B" FromRole="UserRole" ToRole="User" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -377,11 +399,11 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PassWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IdRole" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK__Users__IdRole__3E52440B" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="UserRole" Relationship="QuanLyKhoN13Model.FK__Users__IdRole__3E52440B" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <Association Name="FK__OutputInf__IdCus__3C69FB99">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="*" />
+          <End Type="QuanLyKhoN13Model.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.OutputInfo" Role="OutputInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Id" />
@@ -392,8 +414,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__InputInfo__IdInp__38996AB5">
-          <End Role="Input" Type="Self.Input" Multiplicity="1" />
-          <End Role="InputInfo" Type="Self.InputInfo" Multiplicity="*" />
+          <End Type="QuanLyKhoN13Model.Input" Role="Input" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.InputInfo" Role="InputInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Input">
               <PropertyRef Name="Id" />
@@ -404,8 +426,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__InputInfo__IdObj__398D8EEE">
-          <End Role="Object" Type="Self.Object" Multiplicity="1" />
-          <End Role="InputInfo" Type="Self.InputInfo" Multiplicity="*" />
+          <End Type="QuanLyKhoN13Model.Object" Role="Object" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.InputInfo" Role="InputInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Object">
               <PropertyRef Name="Id" />
@@ -416,8 +438,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Object__IdSuplie__3A81B327">
-          <End Role="Suplier" Type="Self.Suplier" Multiplicity="1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <End Type="QuanLyKhoN13Model.Suplier" Role="Suplier" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Suplier">
               <PropertyRef Name="Id" />
@@ -428,8 +450,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Object__IdUnit__3B75D760">
-          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <End Type="QuanLyKhoN13Model.Unit" Role="Unit" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Unit">
               <PropertyRef Name="Id" />
@@ -439,21 +461,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OutputInf__Idobj__3D5E1FD2">
-          <End Role="Object" Type="Self.Object" Multiplicity="1" />
-          <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="*" />
+        <Association Name="FK__OutputInf__IdObj__3D5E1FD2">
+          <End Type="QuanLyKhoN13Model.Object" Role="Object" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.OutputInfo" Role="OutputInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Object">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="OutputInfo">
-              <PropertyRef Name="Idobject" />
+              <PropertyRef Name="IdObject" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__OutputInfo__Id__2E1BDC42">
-          <End Role="Output" Type="Self.Output" Multiplicity="1" />
-          <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="0..1" />
+          <End Type="QuanLyKhoN13Model.Output" Role="Output" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.OutputInfo" Role="OutputInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Output">
               <PropertyRef Name="Id" />
@@ -464,182 +486,126 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Users__IdRole__3E52440B">
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <End Type="QuanLyKhoN13Model.UserRole" Role="UserRole" Multiplicity="1" />
+          <End Type="QuanLyKhoN13Model.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserRole">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="IdRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QuanLyKhoN13Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Customer" EntityType="Self.Customer" />
-          <EntitySet Name="Input" EntityType="Self.Input" />
-          <EntitySet Name="InputInfo" EntityType="Self.InputInfo" />
-          <EntitySet Name="Object" EntityType="Self.Object" />
-          <EntitySet Name="Output" EntityType="Self.Output" />
-          <EntitySet Name="OutputInfo" EntityType="Self.OutputInfo" />
-          <EntitySet Name="Suplier" EntityType="Self.Suplier" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Unit" EntityType="Self.Unit" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK__OutputInf__IdCus__3C69FB99" Association="Self.FK__OutputInf__IdCus__3C69FB99">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="OutputInfo" EntitySet="OutputInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__InputInfo__IdInp__38996AB5" Association="Self.FK__InputInfo__IdInp__38996AB5">
-            <End Role="Input" EntitySet="Input" />
-            <End Role="InputInfo" EntitySet="InputInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__InputInfo__IdObj__398D8EEE" Association="Self.FK__InputInfo__IdObj__398D8EEE">
-            <End Role="Object" EntitySet="Object" />
-            <End Role="InputInfo" EntitySet="InputInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Object__IdSuplie__3A81B327" Association="Self.FK__Object__IdSuplie__3A81B327">
-            <End Role="Suplier" EntitySet="Suplier" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Object__IdUnit__3B75D760" Association="Self.FK__Object__IdUnit__3B75D760">
-            <End Role="Unit" EntitySet="Unit" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OutputInf__Idobj__3D5E1FD2" Association="Self.FK__OutputInf__Idobj__3D5E1FD2">
-            <End Role="Object" EntitySet="Object" />
-            <End Role="OutputInfo" EntitySet="OutputInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OutputInfo__Id__2E1BDC42" Association="Self.FK__OutputInfo__Id__2E1BDC42">
-            <End Role="Output" EntitySet="Output" />
-            <End Role="OutputInfo" EntitySet="OutputInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users__IdRole__3E52440B" Association="Self.FK__Users__IdRole__3E52440B">
-            <End Role="UserRole" EntitySet="UserRole" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QuanLyKhoN13ModelStoreContainer" CdmEntityContainer="QuanLyKhoN13Entities">
-          <EntitySetMapping Name="Customer">
+          <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="MoreInfo" ColumnName="MoreInfo" />
                 <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="MoreInfo" ColumnName="MoreInfo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Input">
+          <EntitySetMapping Name="Inputs">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.Input">
               <MappingFragment StoreEntitySet="Input">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DateInput" ColumnName="DateInput" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InputInfo">
+          <EntitySetMapping Name="InputInfoes">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.InputInfo">
               <MappingFragment StoreEntitySet="InputInfo">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IdObject" ColumnName="IdObject" />
-                <ScalarProperty Name="IdInput" ColumnName="IdInput" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="InputPrice" ColumnName="InputPrice" />
-                <ScalarProperty Name="OutputPrice" ColumnName="OutputPrice" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OutputPrice" ColumnName="OutputPrice" />
+                <ScalarProperty Name="InputPrice" ColumnName="InputPrice" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IdInput" ColumnName="IdInput" />
+                <ScalarProperty Name="IdObject" ColumnName="IdObject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Object">
+          <EntitySetMapping Name="Objects">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.Object">
               <MappingFragment StoreEntitySet="Object">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="IdUnit" ColumnName="IdUnit" />
-                <ScalarProperty Name="IdSuplier" ColumnName="IdSuplier" />
-                <ScalarProperty Name="ORCode" ColumnName="ORCode" />
                 <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+                <ScalarProperty Name="ORCode" ColumnName="ORCode" />
+                <ScalarProperty Name="IdSuplier" ColumnName="IdSuplier" />
+                <ScalarProperty Name="IdUnit" ColumnName="IdUnit" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Output">
+          <EntitySetMapping Name="Outputs">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.Output">
               <MappingFragment StoreEntitySet="Output">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DateOutput" ColumnName="DateOutput" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OutputInfo">
+          <EntitySetMapping Name="OutputInfoes">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.OutputInfo">
               <MappingFragment StoreEntitySet="OutputInfo">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Idobject" ColumnName="Idobject" />
-                <ScalarProperty Name="IdOutputInfo" ColumnName="IdOutputInfo" />
-                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="IdOutputInfo" ColumnName="IdOutputInfo" />
+                <ScalarProperty Name="IdObject" ColumnName="IdObject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Suplier">
+          <EntitySetMapping Name="Supliers">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.Suplier">
               <MappingFragment StoreEntitySet="Suplier">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="MoreInfo" ColumnName="MoreInfo" />
                 <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="MoreInfo" ColumnName="MoreInfo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="QuanLyKhoN13Model.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Unit">
+          <EntitySetMapping Name="Units">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.Unit">
               <MappingFragment StoreEntitySet="Unit">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserRole">
+          <EntitySetMapping Name="UserRoles">
             <EntityTypeMapping TypeName="QuanLyKhoN13Model.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="QuanLyKhoN13Model.Users">
+            <EntityTypeMapping TypeName="QuanLyKhoN13Model.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -657,7 +623,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

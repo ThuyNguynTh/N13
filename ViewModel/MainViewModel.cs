@@ -103,12 +103,12 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         {
             TonKhoList = new ObservableCollection<TonKho>();
 
-            var objectList = DataProvider.Ins.DB.Object;
+            var objectList = DataProvider.Ins.DB.Objects;
             int i = 1;
             foreach(var item in objectList)
             {
-                var inputList = DataProvider.Ins.DB.InputInfo.Where( p => p.IdObject == item.Id); //lấy thông tin input infor có idOject = object đang tính
-                var outputList = DataProvider.Ins.DB.OutputInfo.Where(p => p.Idobject == item.Id);
+                var inputList  = DataProvider.Ins.DB.InputInfoes.Where( p => p.IdObject == item.Id); //lấy thông tin input infor có idOject = object đang tính
+                var outputList = DataProvider.Ins.DB.OutputInfoes.Where(p => p.IdObject == item.Id);
 
                 int sumInput = 0;
                 int sumOutput = 0;

@@ -17,7 +17,7 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.OutputInfo = new HashSet<OutputInfo>();
+            this.OutputInfoes = new HashSet<OutputInfo>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         public Nullable<System.DateTime> ContractDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutputInfo> OutputInfo { get; set; }
+        public virtual ICollection<OutputInfo> OutputInfoes { get; set; }
     }
 }

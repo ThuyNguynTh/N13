@@ -17,13 +17,13 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Input()
         {
-            this.InputInfo = new HashSet<InputInfo>();
+            this.InputInfoes = new HashSet<InputInfo>();
         }
     
         public string Id { get; set; }
         public Nullable<System.DateTime> DateInput { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InputInfo> InputInfo { get; set; }
+        public virtual ICollection<InputInfo> InputInfoes { get; set; }
     }
 }

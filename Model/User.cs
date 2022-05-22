@@ -12,12 +12,14 @@ namespace Nhom13_Quan_ly_kho_hang.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class User
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Id { get; set; }
+        public string DisplayName { get; set; }
+        public string UserName { get; set; }
+        public string PassWord { get; set; }
+        public int IdRole { get; set; }
+    
+        public virtual UserRole UserRole { get; set; }
     }
 }
