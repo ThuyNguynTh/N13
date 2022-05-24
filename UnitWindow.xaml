@@ -8,7 +8,6 @@
         
         xmlns:uc="clr-namespace:Nhom13_Quan_ly_kho_hang.UserControlN13"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
      TextElement.FontSize="13"
      TextOptions.TextFormattingMode="Ideal"
@@ -19,7 +18,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         x:Name="window"
-        
+        DataContext="{StaticResource UnitVM}"
         Title="Đơn vị đo" Height="500" Width="400">
     <Grid>
         <Grid.RowDefinitions>
@@ -40,7 +39,7 @@
 
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <Grid>
-                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Tên đơn vị đo" Style="{StaticResource MaterialDesignTextBoxBase}"/>
+                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="Tên đơn vị đo" Style="{StaticResource MaterialDesignTextBoxBase}"/>
                 </Grid>
             </materialDesign:Card>
 
@@ -54,7 +53,7 @@
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
