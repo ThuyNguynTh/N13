@@ -18,6 +18,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         x:Name="window"
+        
         DataContext="{StaticResource UnitVM}"
         Title="Đơn vị đo" Height="500" Width="400">
     <Grid>
