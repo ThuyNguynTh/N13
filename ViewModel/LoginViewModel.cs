@@ -64,7 +64,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
                 }
                     
-                IsLogin = true;
+                
                 
             }
            
