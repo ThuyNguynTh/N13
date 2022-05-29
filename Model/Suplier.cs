@@ -25,19 +25,19 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         private int _Id { get; set; }
         public int Id { get => _Id; set { _Id = value; OnPropertyChanged(); } }
 
-         string _DisplayName { get; set; }
+        string _DisplayName { get; set; }
         public string DisplayName { get => _DisplayName; set { _DisplayName = value; OnPropertyChanged(); } }
 
-         string _Address { get; set; }
+        string _Address { get; set; }
         public string Address { get => _Address; set { _Address = value; OnPropertyChanged(); } }
 
-         string _Phone { get; set; }
+        string _Phone { get; set; }
         public string Phone { get => _Phone; set { _Phone = value; OnPropertyChanged(); } }
 
-         string _Email { get; set; }
+        string _Email { get; set; }
         public string Email { get => _Email; set { _Email = value; OnPropertyChanged(); } }
 
-         string _MoreInfo { get; set; }
+        string _MoreInfo { get; set; }
         public string MoreInfo { get => _MoreInfo; set { _MoreInfo = value; OnPropertyChanged(); } }
 
         Nullable<System.DateTime> _ContractDate;
