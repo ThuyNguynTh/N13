@@ -14,9 +14,16 @@ namespace Nhom13_Quan_ly_kho_hang.Model
     
     public partial class Output
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Output()
+        {
+            this.OutputInfoes = new HashSet<OutputInfo>();
+        }
+    
         public string Id { get; set; }
         public Nullable<System.DateTime> DateOutput { get; set; }
     
-        public virtual OutputInfo OutputInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OutputInfo> OutputInfoes { get; set; }
     }
 }

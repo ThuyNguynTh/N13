@@ -15,68 +15,59 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         public ICommand CloseWindowCommand { get; set; }
         public ICommand MaximizeWindowCommand { get; set; }
         internal RelayCommand<UserControl> MinimizeWindowCommand { get; }
-        public ICommand MinimizeCommand { get; set; }
+        public ICommand Demo { get; set; }
         public ICommand MouseMoveWindowCommand { get; set; }
         #endregion
         public ControlBarViewModel()
         {
             CloseWindowCommand = new RelayCommand<UserControl>((p) =>
-            {
-                return p == null ? false : true;
-            }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
                 {
-                    w.Close();
-                }
-            }
-                    );
-            MaximizeWindowCommand = new RelayCommand<UserControl>((p) =>
-            {
-                return p == null ? false : true;
-            }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
+                    return p == null ? false : true;
+                }, (p) =>
                 {
-                    if (w.WindowState != WindowState.Maximized)
-                        w.WindowState = WindowState.Maximized;
-                    else
-                        w.WindowState = WindowState.Normal;
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    if (w != null)
+                        w.Close();
                 }
-            }
             );
-            MinimizeWindowCommand = new RelayCommand<UserControl>((p) =>
-            {
-                return p == null ? false : true;
-            }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
+            MaximizeWindowCommand = new RelayCommand<UserControl>((p) =>
                 {
-                    if (w.WindowState != WindowState.Minimized)
-                        w.WindowState = WindowState.Minimized;
-                    else
-                        w.WindowState = WindowState.Maximized;
+                    return p == null ? false : true;
+                }, (p) =>
+                {
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    if (w != null)
+                        if (w.WindowState != WindowState.Maximized)
+                            w.WindowState = WindowState.Maximized;
+                        else
+                            w.WindowState = WindowState.Normal;
                 }
-            }
+            );
+            Demo = new RelayCommand<UserControl>((p) =>
+                {
+                    return p == null ? false : true;
+                }, (p) =>
+                {
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    Console.WriteLine(w.WindowState);
+                    if (w != null)
+                        if (w.WindowState != WindowState.Minimized)
+                            w.WindowState = WindowState.Minimized;
+                }
             );
             MouseMoveWindowCommand = new RelayCommand<UserControl>((p) =>
-            {
-                return p == null ? false : true;
-            }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
                 {
-                    w.DragMove();
+                    return p == null ? false : true;
+                }, (p) =>
+                {
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    if (w != null)
+                        w.DragMove();
                 }
-            }
             );
         }
         
@@ -84,9 +75,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         {
             FrameworkElement parent = p;
             while (parent.Parent != null)
-            {
                 parent = parent.Parent as FrameworkElement;
-            }
             return parent;
         }
         

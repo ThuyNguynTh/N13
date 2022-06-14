@@ -15,6 +15,28 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         private ObservableCollection<TonKho> _TonKhoList;
         public ObservableCollection<TonKho> TonKhoList { get => _TonKhoList; set { _TonKhoList = value; OnPropertyChanged(); } }
         public bool Isloaded = false;
+        private int _TongNhap;
+
+        public int TongNhap
+        {
+            get { return _TongNhap; }
+            set { _TongNhap = value; OnPropertyChanged(); }
+        }
+        private int _TongXuat;
+
+        public int TongXuat
+        {
+            get { return _TongXuat; }
+            set { _TongXuat = value; OnPropertyChanged(); }
+        }
+        private int _TongTon;
+
+        public int TongTon
+        {
+            get { return _TongTon; }
+            set { _TongTon = value; OnPropertyChanged(); }
+        }
+
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand UnitCommand { get; set; }
         public ICommand SuplierCommand { get; set; }
@@ -45,14 +67,9 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                  {
                      p.Show();
                      LoadTonKhoData();
-
                  }
                  else
-                 {
                      p.Close();
-                 }
-
-                
              }
              );
 
@@ -90,12 +107,14 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
             {
                 InputWindow wd = new InputWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
             }
             );
             OutputCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 OutputWindow wd = new OutputWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
             }
            );
         }
@@ -103,8 +122,9 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         {
             TonKhoList = new ObservableCollection<TonKho>();
 
-            var objectList = DataProvider.Ins.DB.Objects;
+            var objectList = DataProvider.Ins.DB.Objects.OrderBy(item => item.DisplayName);
             int i = 1;
+            TongNhap = TongXuat = 0;
             foreach(var item in objectList)
             {
                 var inputList  = DataProvider.Ins.DB.InputInfoes.Where( p => p.IdObject == item.Id); //lấy thông tin input infor có idOject = object đang tính
@@ -116,10 +136,12 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                 if(inputList != null && inputList.Count() > 0)
                 {
                     sumInput = (int)inputList.Sum(p => p.Count);
+                    TongNhap += sumInput;
                 }
                 if (outputList != null && outputList.Count() > 0)
                 {
                     sumOutput = (int)outputList.Sum(p => p.Count);
+                    TongXuat += sumOutput;
                 }
 
                 TonKho tonkho = new TonKho();
@@ -131,6 +153,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
                 i++;
             }
+            TongTon = TongNhap - TongXuat;
         }
     }
 }

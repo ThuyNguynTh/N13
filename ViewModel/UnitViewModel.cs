@@ -87,7 +87,6 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     unit.DisplayName = DisplayName;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.DisplayName = DisplayName;
-                    OnPropertyChanged();
                 });
         }
 

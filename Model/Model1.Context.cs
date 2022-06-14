@@ -27,13 +27,14 @@ namespace Nhom13_Quan_ly_kho_hang.Model
     
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Input> Inputs { get; set; }
-        public virtual DbSet<InputInfo> InputInfoes { get; set; }
         public virtual DbSet<Object> Objects { get; set; }
         public virtual DbSet<Output> Outputs { get; set; }
         public virtual DbSet<OutputInfo> OutputInfoes { get; set; }
         public virtual DbSet<Suplier> Supliers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<InputInfo> InputInfoes { get; set; }
     }
 }

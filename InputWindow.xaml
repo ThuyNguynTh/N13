@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nhom13_Quan_ly_kho_hang"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
         
         xmlns:uc="clr-namespace:Nhom13_Quan_ly_kho_hang.UserControlN13"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -19,8 +20,14 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         x:Name="window"
-        
-        Title="Nhà cung cấp" Height="500" Width="600">
+        DataContext="{StaticResource InputVM}"
+        Title="Nhập kho" Height="500" Width="600">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -40,11 +47,10 @@
 
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <WrapPanel>
-                    <TextBox Text="{Binding ObjectDisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên vật tư" Style="{StaticResource MaterialDesignTextBoxBase}"/>
-                    <DatePicker VerticalAlignment="Center" SelectedDate="{Binding DataInput}" Width="100" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Ngày nhập" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
-                    <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignTextBoxBase}"/>
-                    <TextBox Text="{Binding PriceInput, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignTextBoxBase}"/>
-                    <TextBox Text="{Binding PriceOutput, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá xuất" Style="{StaticResource MaterialDesignTextBoxBase}"/>
+                    <ComboBox Margin="5 5 15 5" DisplayMemberPath="DisplayName" ItemsSource="{Binding ObjectList}" SelectedItem="{Binding SelectedObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên vật tư" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100"></ComboBox>
+                    <DatePicker SelectedDateFormat="Short" VerticalAlignment="Center" SelectedDate="{Binding DateInput}" Width="100" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Ngày nhập" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
+                    <TextBox x:Name="txtCount" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignTextBoxBase}" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Width="95"/>
+                    <TextBox x:Name="txtInputPrice" Text="{Binding PriceInput, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignTextBoxBase}" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Width="95"/>
                     <TextBox Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Trạng thái nhập" Style="{StaticResource MaterialDesignTextBoxBase}"/>
                 </WrapPanel>
             </materialDesign:Card>
@@ -66,7 +72,6 @@
                                 <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding Input.DateInput}"></GridViewColumn>
                                 <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
                                 <GridViewColumn Header="Giá nhập" DisplayMemberBinding="{Binding InputPrice}"></GridViewColumn>
-                                <GridViewColumn Header="Giá xuất" DisplayMemberBinding="{Binding OutputPrice}"></GridViewColumn>
                                 <GridViewColumn Header="Trạng thái nhập" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
                             </GridView>
                         </ListView.View>

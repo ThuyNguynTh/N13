@@ -54,7 +54,7 @@
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem , Mode=TwoWay}" SelectionChanged="ListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>

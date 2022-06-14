@@ -10,12 +10,12 @@
         xmlns:uc="clr-namespace:Nhom13_Quan_ly_kho_hang.UserControlN13"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -93,7 +93,7 @@
                     </Button>
                     <Button Command="{Binding ObjectCommand}" Grid.Column="2" ToolTip="Vật tư" >
                         <Grid>
-<Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
@@ -149,7 +149,7 @@
                             <Grid Grid.Row="1">
                                 <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="HumanMaleFemale" />
                             </Grid>
-</Grid>
+                        </Grid>
 
                     </Button>
                     <Button Grid.Column="6" Command="{Binding UserCommand}" ToolTip="Người dùng" >
@@ -204,7 +204,7 @@
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
                                 <Grid Grid.Column="2">
-<Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" Margin="5" Content="Lọc" ToolTip="Resource name: MaterialDesignRaisedButton">
+                                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" Margin="5" Content="Lọc" ToolTip="Resource name: MaterialDesignRaisedButton">
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -239,14 +239,14 @@
                                                         Style="{StaticResource MaterialDesignLightSeparator}" />
                                             <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center"
                                                        HorizontalAlignment="Left"
-                                                       Text="240201"
+                                                       Text="{Binding TongNhap}"
                                                        Style="{StaticResource MaterialDesignHeadline3TextBlock}">
                                             </TextBlock>
                                                 
                                                 <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
                                                     <StackPanel>
                                                            <!--Đưa bổ sung-->
-</StackPanel>
+                                                    </StackPanel>
                                                 </materialDesign:PopupBox>
                                         </Grid>
                                     </materialDesign:Card>
@@ -271,7 +271,7 @@
                                                         Style="{StaticResource MaterialDesignLightSeparator}" />
                                             <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center"
                                                        HorizontalAlignment="Left"
-                                                       Text="240201"
+                                                       Text="{Binding TongXuat}"
                                                        Style="{StaticResource MaterialDesignHeadline3TextBlock}">
                                             </TextBlock>
 
@@ -289,22 +289,22 @@
                                                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                                                          Padding="0" Width="200"
                                                          Margin="5">
-<Grid>
+                                        <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Margin="16 16 16 4"
-                                                       Text="Tồn kho"
-                                                        Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+                                                    Text="Tồn kho"
+                                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}">
                                             </TextBlock>
                                             <Separator Grid.Row="1"
-                                                        Style="{StaticResource MaterialDesignLightSeparator}" />
+                                                    Style="{StaticResource MaterialDesignLightSeparator}" />
                                             <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center"
-                                                       HorizontalAlignment="Left"
-                                                       Text="240201"
-                                                       Style="{StaticResource MaterialDesignHeadline3TextBlock}">
+                                                    HorizontalAlignment="Left"
+                                                    Text="{Binding TongTon}"
+                                                    Style="{StaticResource MaterialDesignHeadline3TextBlock}">
                                             </TextBlock>
 
                                             <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
@@ -337,7 +337,7 @@
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-<Grid Grid.Column="0">
+                                <Grid Grid.Column="0">
                                     <DatePicker VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"
                                                 materialDesign:HintAssist.Hint="Ngày bắt đầu"
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
