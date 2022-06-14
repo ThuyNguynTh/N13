@@ -98,7 +98,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                 else
                 {
                     Id = null;
-                    DateInput = DateTime.Now;
+                    DateInput = DateTime.Today;
                     Count = 0;
                     PriceInput = 0;
                     Status = "";
@@ -119,7 +119,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                 return true;
             }, (p) =>
             {
-                var input = new Model.Input() { DateInput = DateInput, Id = Guid.NewGuid().ToString() };
+                var input = new Model.Input() { DateInput = DateTime.Now, Id = Guid.NewGuid().ToString() };
                 DataProvider.Ins.DB.Inputs.Add(input);
                 DataProvider.Ins.DB.SaveChanges();
                 var inpo = DataProvider.Ins.DB.Inputs.Where(x => x.Id == input.Id).SingleOrDefault();
@@ -139,7 +139,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
             EditCommand = new RelayCommand<object>((p) => 
             {
-                if (DateInput.Day == DateTime.Today.Day || DateInput.Month == DateTime.Today.Month || DateInput.Year == DateTime.Today.Year)
+                if (DateInput.Day == DateTime.Today.Day && DateInput.Month == DateTime.Today.Month && DateInput.Year == DateTime.Today.Year)
                     return true;
                 else
                     return false;
@@ -162,21 +162,36 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     inputInfo.Status = Status;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem = inputInfo;
-                }    
-                
+                }
             });
 
             DeleteCommand = new RelayCommand<object>((p) =>
             {
-                return true;
+                if (DateInput.Day == DateTime.Today.Day && DateInput.Month == DateTime.Today.Month && DateInput.Year == DateTime.Today.Year)
+                    return true;
+                else
+                    return false;
             }, (p) =>
             {
                 DialogResult result = System.Windows.Forms.MessageBox.Show("Bạn có chắc chắn muốn xóa đơn nhập không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
-                {    
-                    DataProvider.Ins.DB.InputInfoes.Remove(DataProvider.Ins.DB.InputInfoes.First(x => x.Id == SelectedItem.Id)) ;
-                    DataProvider.Ins.DB.SaveChanges();
-                    LoadData();
+                {
+                    int sumInput, sumOutput;
+                    var inputInfo = DataProvider.Ins.DB.InputInfoes.Where(x => x.Id == Id).SingleOrDefault();
+                    sumInput = (int)DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == inputInfo.IdObject).Sum(su => su.Count) - (int)inputInfo.Count;
+                    var listOutput = DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == inputInfo.IdObject);
+                    sumOutput = (listOutput == null || listOutput.Count() == 0) ? 0 : (int)listOutput.Sum(su => su.Count);
+                    if (sumInput < sumOutput)
+                        System.Windows.MessageBox.Show("Không thể xóa hàng nhập vì tồn kho không thể nhỏ hơn 0.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    else
+                    {
+                        string idInput = inputInfo.Input.Id;
+                        DataProvider.Ins.DB.InputInfoes.Remove(DataProvider.Ins.DB.InputInfoes.First(x => x.Id == SelectedItem.Id)) ;
+                        DataProvider.Ins.DB.SaveChanges();
+                        DataProvider.Ins.DB.Inputs.Remove(DataProvider.Ins.DB.Inputs.First(x => x.Id == idInput));
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadData();
+                    }  
                 }
             });
 

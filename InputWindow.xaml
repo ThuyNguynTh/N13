@@ -47,7 +47,7 @@
 
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <WrapPanel>
-                    <ComboBox Margin="5 5 15 5" DisplayMemberPath="DisplayName" ItemsSource="{Binding ObjectList}" SelectedItem="{Binding SelectedObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên vật tư" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100"></ComboBox>
+                    <ComboBox Margin="5 5 15 5" DisplayMemberPath="DisplayName" ItemsSource="{Binding ObjectList}" SelectedItem="{Binding SelectedObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên vật tư" IsEditable="False" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100"></ComboBox>
                     <DatePicker SelectedDateFormat="Short" VerticalAlignment="Center" SelectedDate="{Binding DateInput}" Width="100" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Ngày nhập" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
                     <TextBox x:Name="txtCount" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignTextBoxBase}" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Width="95"/>
                     <TextBox x:Name="txtInputPrice" Text="{Binding PriceInput, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignTextBoxBase}" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Width="95"/>

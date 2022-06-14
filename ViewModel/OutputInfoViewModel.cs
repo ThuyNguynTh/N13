@@ -136,62 +136,80 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                 return true;
             }, (p) =>
             {
-                var outp = DataProvider.Ins.DB.Outputs.Where(x => x.DateOutput == DateOutput);
-                if (!(outp == null || outp.Count() != 0))
+                int sumInput, sumOutput;
+                var listOutput = DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == SelectedObject.Id);
+                sumOutput = (listOutput == null || listOutput.Count() == 0) ? 0 : (int)listOutput.Sum(su => su.Count) + Count;
+                var listInput = DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == SelectedObject.Id);
+                sumInput = (listInput == null || listInput.Count() == 0) ? 0 : (int)listInput.Sum(su => su.Count);
+                if (sumInput < sumOutput)
+                    System.Windows.MessageBox.Show("Không thể thêm hàng xuất vì tồn kho không thể nhỏ hơn 0.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Stop);
+                else
                 {
-                    var output = new Model.Output() { DateOutput = DateOutput, Id = Guid.NewGuid().ToString() };
+                    var output = new Model.Output() { DateOutput = DateTime.Now, Id = Guid.NewGuid().ToString() };
                     DataProvider.Ins.DB.Outputs.Add(output);
                     DataProvider.Ins.DB.SaveChanges();
-                }
-                var outpu = DataProvider.Ins.DB.Outputs.Where(x => x.DateOutput == DateOutput).SingleOrDefault();
-                var outputinfo = new OutputInfo()
-                {
-                    IdObject = SelectedObject.Id,
-                    IdOutput = outpu.Id,
-                    Count = Count,
-                    IdCustomer = SelectedCustomer.Id,
-                    OutputPrice = PriceOutput,
-                    Status = Status,
-                    Id = Guid.NewGuid().ToString()
-                };
-                DataProvider.Ins.DB.OutputInfoes.Add(outputinfo);
-                DataProvider.Ins.DB.SaveChanges();
-                List.Add(outputinfo);
+                    var outpu = DataProvider.Ins.DB.Outputs.Where(x => x.Id == output.Id).SingleOrDefault();
+                    var outputinfo = new OutputInfo()
+                    {
+                        IdObject = SelectedObject.Id,
+                        IdOutput = outpu.Id,
+                        Count = Count,
+                        IdCustomer = SelectedCustomer.Id,
+                        OutputPrice = PriceOutput,
+                        Status = Status,
+                        Id = Guid.NewGuid().ToString()
+                    };
+                    DataProvider.Ins.DB.OutputInfoes.Add(outputinfo);
+                    DataProvider.Ins.DB.SaveChanges();
+                    List.Add(outputinfo);
+                }    
             });
 
             EditCommand = new RelayCommand<object>((p) =>
             {
-                return true;
+                if (DateOutput.Day == DateTime.Today.Day && DateOutput.Month == DateTime.Today.Month && DateOutput.Year == DateTime.Today.Year)
+                    return true;
+                else
+                    return false;
             }, (p) =>
             {
-                var outp = DataProvider.Ins.DB.Outputs.Where(x => x.DateOutput == DateOutput);
-                if (!(outp == null || outp.Count() != 0))
-                {
-                    var output = new Model.Output() { DateOutput = DateOutput, Id = Guid.NewGuid().ToString() };
-                    DataProvider.Ins.DB.Outputs.Add(output);
-                    DataProvider.Ins.DB.SaveChanges();
-                }
-                var outpu = DataProvider.Ins.DB.Outputs.Where(x => x.DateOutput == DateOutput).SingleOrDefault();
+                int sumInput, sumOutput;
                 var outputInfo = DataProvider.Ins.DB.OutputInfoes.Where(x => x.Id == Id).SingleOrDefault();
-                outputInfo.IdObject = SelectedObject.Id;
-                outputInfo.IdOutput = outpu.Id;
-                outputInfo.Count = Count;
-                outputInfo.IdCustomer = SelectedCustomer.Id;
-                outputInfo.OutputPrice = PriceOutput;
-                outputInfo.Status = Status;
-                DataProvider.Ins.DB.SaveChanges();
-                SelectedItem = outputInfo;
+                if (SelectedObject.Id == outputInfo.Object.Id)
+                    sumOutput = (int)DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == SelectedObject.Id).Sum(su => su.Count) + Count - (int)outputInfo.Count;
+                else
+                    sumOutput = (int)DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == SelectedObject.Id).Sum(su => su.Count) + Count;
+                var listInput = DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == SelectedObject.Id);
+                sumInput = (listInput == null || listInput.Count() == 0) ? 0 : (int)listInput.Sum(su => su.Count);
+                if (sumInput < sumOutput)
+                    System.Windows.MessageBox.Show("Không thể thêm hàng xuất vì tồn kho không thể nhỏ hơn 0.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Stop);
+                else
+                {
+                    outputInfo.IdObject = SelectedObject.Id;
+                    outputInfo.Count = Count;
+                    outputInfo.IdCustomer = SelectedCustomer.Id;
+                    outputInfo.OutputPrice = PriceOutput;
+                    outputInfo.Status = Status;
+                    DataProvider.Ins.DB.SaveChanges();
+                    SelectedItem = outputInfo;
+                }    
             });
 
             DeleteCommand = new RelayCommand<object>((p) =>
             {
-                return true;
+                if (DateOutput.Day == DateTime.Today.Day && DateOutput.Month == DateTime.Today.Month && DateOutput.Year == DateTime.Today.Year)
+                    return true;
+                else
+                    return false;
             }, (p) =>
             {
                 DialogResult result = System.Windows.Forms.MessageBox.Show("Bạn có chắc chắn muốn xóa đơn xuất không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
+                    var idOutput = DataProvider.Ins.DB.OutputInfoes.Where(x => x.Id == SelectedItem.Id).SingleOrDefault().Output.Id;
                     DataProvider.Ins.DB.OutputInfoes.Remove(DataProvider.Ins.DB.OutputInfoes.First(x => x.Id == SelectedItem.Id));
+                    DataProvider.Ins.DB.SaveChanges();
+                    DataProvider.Ins.DB.Outputs.Remove(DataProvider.Ins.DB.Outputs.First(x => x.Id == idOutput));
                     DataProvider.Ins.DB.SaveChanges();
                     LoadData();
                 }
