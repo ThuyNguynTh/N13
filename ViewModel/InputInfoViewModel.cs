@@ -206,7 +206,8 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         {
             List = new ObservableCollection<InputInfo>(DataProvider.Ins.DB.InputInfoes.OrderBy(item => item.Input.DateInput));
             ObjectList = new ObservableCollection<Model.Object>(DataProvider.Ins.DB.Objects.OrderBy(item => item.DisplayName));
-            SelectedObject = ObjectList[0];
+            if (ObjectList.Count != 0)
+                SelectedObject = ObjectList[0];
         }
     }
 }

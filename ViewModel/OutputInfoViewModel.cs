@@ -126,10 +126,14 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+        public ICommand LoadedWindowCommand { get; set; }
 
         public OutputInfoViewModel()
         {
-            LoadData();
+            LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                LoadData();
+            });
 
             AddCommand = new RelayCommand<object>((p) =>
             {
@@ -222,8 +226,10 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
             List = new ObservableCollection<OutputInfo>(DataProvider.Ins.DB.OutputInfoes.OrderBy(item => item.Output.DateOutput));
             ObjectList = new ObservableCollection<Model.Object>(DataProvider.Ins.DB.Objects.OrderBy(item => item.DisplayName));
             Customer = new ObservableCollection<Customer>(DataProvider.Ins.DB.Customers.OrderBy(item => item.DisplayName));
-            SelectedCustomer = Customer[0];
-            SelectedObject = ObjectList[0];
+            if (Customer.Count() != 0)
+                SelectedCustomer = Customer[0];
+            if (ObjectList.Count() != 0)
+                SelectedObject = ObjectList[0];
         }
     }
 }

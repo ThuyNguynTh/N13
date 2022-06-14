@@ -156,7 +156,8 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         {
             Role = new ObservableCollection<UserRole>(DataProvider.Ins.DB.UserRoles);
             List = new ObservableCollection<User>(DataProvider.Ins.DB.Users);
-            SelectedRole = Role[0];
+            if (Role.Count() != 0)
+                SelectedRole = Role[0];
         }
 
         void Logout(Window p)

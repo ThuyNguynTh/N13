@@ -142,9 +142,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
                     Console.WriteLine(inputInfoList.Count());
                     DataProvider.Ins.DB.InputInfoes.RemoveRange(inputInfoList);
-                    DataProvider.Ins.DB.SaveChanges();
                     DataProvider.Ins.DB.Inputs.RemoveRange(inputList);
-                    DataProvider.Ins.DB.SaveChanges();
 
                     List<OutputInfo> outputInfoList = new List<OutputInfo>();
                     foreach (var objectt in objectList)
@@ -158,13 +156,10 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                         outputList.Add(DataProvider.Ins.DB.Outputs.First(x => x.Id == outputInfo.IdOutput));
 
                     DataProvider.Ins.DB.OutputInfoes.RemoveRange(outputInfoList);
-                    DataProvider.Ins.DB.SaveChanges();
                     DataProvider.Ins.DB.Outputs.RemoveRange(outputList);
-                    DataProvider.Ins.DB.SaveChanges();
 
                     DataProvider.Ins.DB.Objects.RemoveRange(objectList);
-                    DataProvider.Ins.DB.SaveChanges();
-                    DataProvider.Ins.DB.Supliers.Remove(DataProvider.Ins.DB.Supliers.First(x => x.Id == SelectedItem.Id));
+                    DataProvider.Ins.DB.Supliers.RemoveRange(DataProvider.Ins.DB.Supliers.Where(x => x.Id == SelectedItem.Id));
 
 
                     DataProvider.Ins.DB.SaveChanges();

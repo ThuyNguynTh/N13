@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -88,9 +89,13 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         public ICommand EditCommand { get; set; }
 
         public ICommand DeleteCommand { get; set; }
+        public ICommand LoadedWindowCommand { get; set; }
         public ObjectViewModel()
         {
-            LoadData();
+            LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                LoadData();
+            });
 
             AddCommand = new RelayCommand<object>((p) =>
             {
@@ -158,8 +163,10 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
             List = new ObservableCollection<Model.Object>(DataProvider.Ins.DB.Objects.OrderBy(x => x.DisplayName));
             Unit = new ObservableCollection<Model.Unit>(DataProvider.Ins.DB.Units.OrderBy(x => x.DisplayName));
             Suplier = new ObservableCollection<Model.Suplier>(DataProvider.Ins.DB.Supliers.OrderBy(x => x.DisplayName));
-            SelectedSuplier = Suplier[0];
-            SelectedUnit = Unit[0];
+            if (Suplier.Count() != 0)
+                SelectedSuplier = Suplier[0];
+            if (Unit.Count() != 0)
+                SelectedUnit = Unit[0];
         }
 
     }
