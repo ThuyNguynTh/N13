@@ -77,6 +77,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
         // Sửa
         public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public CustomerViewModel()
         {
             List = new ObservableCollection<Customer>(DataProvider.Ins.DB.Customers);
@@ -102,12 +103,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     {
                         if (SelectedItem == null)
                             return false;
-                        var displayList = DataProvider.Ins.DB.Customers.Where(x => x.Id == SelectedItem.Id);
-                        if (displayList != null && displayList.Count() != 0)
-                        {
-                            return true;
-                        }
-                        else return false;
+                        return true;
 
                     },
                 (p) =>
@@ -121,9 +117,17 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     Customer.ContractDate = ContractDate;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.DisplayName = DisplayName;
-
-                    OnPropertyChanged();
                 });
+
+            DeleteCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            }, (p) =>
+            {
+
+            });
         }
 
 

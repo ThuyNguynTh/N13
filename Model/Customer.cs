@@ -9,25 +9,71 @@
 
 namespace Nhom13_Quan_ly_kho_hang.Model
 {
+    using Nhom13_Quan_ly_kho_hang.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Customer : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
             this.OutputInfoes = new HashSet<OutputInfo>();
         }
-    
-        public int Id { get; set; }
-        public string DisplayName { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string MoreInfo { get; set; }
-        public Nullable<System.DateTime> ContractDate { get; set; }
-    
+
+        private int _Id;
+
+        public int Id
+        {
+            get { return _Id; }
+            set { _Id = value; OnPropertyChanged(); }
+        }
+        private string _DisplayName;
+
+        public string DisplayName
+        {
+            get { return _DisplayName; }
+            set { _DisplayName = value; OnPropertyChanged(); }
+        }
+        private string _Address;
+
+        public string Address
+        {
+            get { return _Address; }
+            set { _Address = value; OnPropertyChanged(); }
+        }
+
+        private string _Phone;
+
+        public string Phone
+        {
+            get { return _Phone; }
+            set { _Phone = value; OnPropertyChanged(); }
+        }
+
+        private string _Email;
+
+        public string Email
+        {
+            get { return _Email; }
+            set { _Email = value; OnPropertyChanged(); }
+        }
+        private string _MoreInfo;
+
+        public string MoreInfo
+        {
+            get { return _MoreInfo; }
+            set { _MoreInfo = value; OnPropertyChanged(); }
+        }
+        private Nullable<DateTime> _ContractDate;
+
+        public Nullable<DateTime> ContractDate
+        {
+            get { return _ContractDate; }
+            set { _ContractDate = value; OnPropertyChanged(); }
+        }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OutputInfo> OutputInfoes { get; set; }
     }

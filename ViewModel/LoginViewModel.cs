@@ -29,7 +29,8 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
         public LoginViewModel()
         {
             IsLogin = false;
-            LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            LoginCommand = new RelayCommand<Window>((p) => 
+            { return true; }, (p) =>
             {
                 Login(p);
               
@@ -54,6 +55,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                 var accCount = DataProvider.Ins.DB.Users.Where(x => x.UserName == UserName && x.PassWord == Password).Count();
                 if (accCount > 0) 
                 {
+                    Console.WriteLine(p);
                     IsLogin = true;
                     p.Close();
                 }

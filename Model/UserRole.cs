@@ -9,10 +9,11 @@
 
 namespace Nhom13_Quan_ly_kho_hang.Model
 {
+    using Nhom13_Quan_ly_kho_hang.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class UserRole : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserRole()
@@ -21,7 +22,13 @@ namespace Nhom13_Quan_ly_kho_hang.Model
         }
     
         public int Id { get; set; }
-        public string DisplayName { get; set; }
+        private string _DisplayName;
+
+        public string DisplayName
+        {
+            get { return _DisplayName; }
+            set { _DisplayName = value; }
+        }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }

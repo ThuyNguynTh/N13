@@ -139,7 +139,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
             EditCommand = new RelayCommand<object>((p) => 
             {
-                if (DateInput.Day == DateTime.Today.Day && DateInput.Month == DateTime.Today.Month && DateInput.Year == DateTime.Today.Year)
+                if (DateInput.Day == DateTime.Today.Day && DateInput.Month == DateTime.Today.Month && DateInput.Year == DateTime.Today.Year && SelectedItem != null)
                     return true;
                 else
                     return false;
@@ -167,7 +167,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
             DeleteCommand = new RelayCommand<object>((p) =>
             {
-                if (DateInput.Day == DateTime.Today.Day && DateInput.Month == DateTime.Today.Month && DateInput.Year == DateTime.Today.Year)
+                if (DateInput.Day == DateTime.Today.Day && DateInput.Month == DateTime.Today.Month && DateInput.Year == DateTime.Today.Year && SelectedItem != null)
                     return true;
                 else
                     return false;

@@ -152,7 +152,7 @@
                         </Grid>
 
                     </Button>
-                    <Button Grid.Column="6" Command="{Binding UserCommand}" ToolTip="Người dùng" >
+                    <Button CommandParameter="{Binding ElementName=mainWindow}" Grid.Column="6" Command="{Binding UserCommand}" ToolTip="Người dùng" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -193,20 +193,9 @@
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <DatePicker VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"
-                                                materialDesign:HintAssist.Hint="Ngày bắt đầu"
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <DatePicker VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"
-                                                materialDesign:HintAssist.Hint="Ngày kết thúc"
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" Margin="5" Content="Lọc" ToolTip="Resource name: MaterialDesignRaisedButton">
-                                    </Button>
-                                </Grid>
+                                <Grid Grid.Column="0"/>
+                                <Grid Grid.Column="1"/>
+                                <Grid Grid.Column="2"/>
                             </Grid>
 
                             <Grid Grid.Row="1">
@@ -337,32 +326,23 @@
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <DatePicker VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"
-                                                materialDesign:HintAssist.Hint="Ngày bắt đầu"
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <DatePicker VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"
-                                                materialDesign:HintAssist.Hint="Ngày kết thúc"
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" Margin="5" Content="Lọc" ToolTip="Resource name: MaterialDesignRaisedButton">
-                                    </Button>
-                                </Grid>
+                                <Grid Grid.Column="0"/>
+                                <Grid Grid.Column="1"/>
+                                <Grid Grid.Column="2"/>
                             </Grid>
                         </Grid>
 
-                        <Grid Grid.Row="1">
-                            <Separator Margin="5"></Separator>
-                        </Grid>
-                        
                         <Grid Grid.Row="2">
                             <ListView ItemsSource="{Binding TonKhoList}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                        <GridViewColumn Header="STT">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding STT}" TextAlignment="Right"></TextBlock>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
                                         <GridViewColumn Header="Tên vật tư" DisplayMemberBinding="{Binding Object.DisplayName}"></GridViewColumn>
                                         <GridViewColumn Header="Số lượng tồn" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
                                     </GridView>

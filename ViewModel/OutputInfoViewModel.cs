@@ -138,7 +138,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
             {
                 int sumInput, sumOutput;
                 var listOutput = DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == SelectedObject.Id);
-                sumOutput = (listOutput == null || listOutput.Count() == 0) ? 0 : (int)listOutput.Sum(su => su.Count) + Count;
+                sumOutput = (listOutput == null || listOutput.Count() == 0) ? Count : (int)listOutput.Sum(su => su.Count) + Count;
                 var listInput = DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == SelectedObject.Id);
                 sumInput = (listInput == null || listInput.Count() == 0) ? 0 : (int)listInput.Sum(su => su.Count);
                 if (sumInput < sumOutput)
@@ -167,7 +167,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
             EditCommand = new RelayCommand<object>((p) =>
             {
-                if (DateOutput.Day == DateTime.Today.Day && DateOutput.Month == DateTime.Today.Month && DateOutput.Year == DateTime.Today.Year)
+                if (DateOutput.Day == DateTime.Today.Day && DateOutput.Month == DateTime.Today.Month && DateOutput.Year == DateTime.Today.Year && SelectedItem != null)
                     return true;
                 else
                     return false;
@@ -197,7 +197,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
             DeleteCommand = new RelayCommand<object>((p) =>
             {
-                if (DateOutput.Day == DateTime.Today.Day && DateOutput.Month == DateTime.Today.Month && DateOutput.Year == DateTime.Today.Year)
+                if (DateOutput.Day == DateTime.Today.Day && DateOutput.Month == DateTime.Today.Month && DateOutput.Year == DateTime.Today.Year && SelectedItem != null)
                     return true;
                 else
                     return false;

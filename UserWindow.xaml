@@ -18,8 +18,9 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        x:Name="window"
         
+        DataContext="{StaticResource UserVM}"
+        Name="userWindow"
         Title="Nhà cung cấp" Height="500" Width="600">
     <Grid>
         <Grid.RowDefinitions>
@@ -40,9 +41,9 @@
 
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <WrapPanel>
-                    <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignTextBoxBase}"/>
-                    <ComboBox Margin="5 5 15 5" ItemsSource="{Binding Role}" SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Quyền" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên hiển thị" Style="{StaticResource MaterialDesignTextBoxBase}"/>
+                    <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <ComboBox DisplayMemberPath="DisplayName" Margin="5 5 15 5" ItemsSource="{Binding Role}" SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Quyền" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên hiển thị" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                 </WrapPanel>
             </materialDesign:Card>
 
@@ -51,18 +52,18 @@
                     <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
                     <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
                     <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
-                    <Button Command="{Binding ChangePasswordCommand}" Content="Đổi pass" Margin="5" Width="100"></Button>
+                    <Button Command="{Binding LogoutCommand}" Content="Đăng xuất" Margin="5" Width="100" CommandParameter="{Binding ElementName=userWindow}"></Button>
                 </WrapPanel>
             </materialDesign:Card>
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" AlternationCount="1000">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"></GridViewColumn>
                                 <GridViewColumn Header="Tên đăng nhập" DisplayMemberBinding="{Binding UserName}"></GridViewColumn>
-                                <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding Role.DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding UserRole.DisplayName}"></GridViewColumn>
                                 <GridViewColumn Header="Tên hiển thị" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
                             </GridView>
                         </ListView.View>

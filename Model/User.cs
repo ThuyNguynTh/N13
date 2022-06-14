@@ -9,14 +9,27 @@
 
 namespace Nhom13_Quan_ly_kho_hang.Model
 {
+    using Nhom13_Quan_ly_kho_hang.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class User : BaseViewModel
     {
         public int Id { get; set; }
-        public string DisplayName { get; set; }
-        public string UserName { get; set; }
+        private string _DisplayName;
+
+        public string DisplayName
+        {
+            get { return _DisplayName; }
+            set { _DisplayName = value; OnPropertyChanged(); }
+        }
+        private string _UserName;
+
+        public string UserName
+        {
+            get { return _UserName; }
+            set { _UserName = value; OnPropertyChanged(); }
+        }
         public string PassWord { get; set; }
         public int IdRole { get; set; }
     

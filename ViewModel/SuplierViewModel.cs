@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace Nhom13_Quan_ly_kho_hang.ViewModel
@@ -31,7 +32,6 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     Email = SelectedItem.Email;
                     MoreInfo = SelectedItem.MoreInfo;
                     ContractDate = SelectedItem.ContractDate;
-
                 }
             }
         }
@@ -77,10 +77,11 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
 
         // Sửa
         public ICommand EditCommand { get; set; }
+
+        public ICommand DeleteCommand { get; set; }
         public SuplierViewModel()
         {
-            List = new ObservableCollection<Suplier>(DataProvider.Ins.DB.Supliers);
-
+            LoadData();
             AddCommand = new RelayCommand<object>
                 (
                     (p) =>
@@ -102,12 +103,7 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     {
                         if (SelectedItem == null)
                             return false;
-                        var displayList = DataProvider.Ins.DB.Supliers.Where(x => x.Id == SelectedItem.Id);
-                        if (displayList != null && displayList.Count() != 0)
-                        {
-                            return true;
-                        }
-                        else return false;
+                        return true;
 
                     },
                 (p) =>
@@ -121,11 +117,65 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
                     Suplier.ContractDate = ContractDate;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.DisplayName = DisplayName;
-
-                    OnPropertyChanged();
                 });
+
+            DeleteCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                DialogResult result = System.Windows.Forms.MessageBox.Show("Bạn có chắc chắn muốn xóa nhà cung cấp không?\nThao tác này sẽ xóa tất cả vật tư liên quan.", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    var objectList = DataProvider.Ins.DB.Objects.Where(x => x.IdSuplier == SelectedItem.Id);
+
+                    List<InputInfo> inputInfoList = new List<InputInfo>();
+                    foreach (var objectt in objectList)
+                    {
+                        var removeList = DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == objectt.Id);
+                        inputInfoList.AddRange(removeList);
+                    }
+                    
+                    List<Input> inputList = new List<Input>();
+                    foreach (var inputInfo in inputInfoList)
+                        inputList.Add(DataProvider.Ins.DB.Inputs.First(x => x.Id == inputInfo.IdInput));
+
+                    Console.WriteLine(inputInfoList.Count());
+                    DataProvider.Ins.DB.InputInfoes.RemoveRange(inputInfoList);
+                    DataProvider.Ins.DB.SaveChanges();
+                    DataProvider.Ins.DB.Inputs.RemoveRange(inputList);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    List<OutputInfo> outputInfoList = new List<OutputInfo>();
+                    foreach (var objectt in objectList)
+                    {
+                        var removeList = DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == objectt.Id);
+                        outputInfoList.AddRange(removeList);
+                    }
+
+                    List<Output> outputList = new List<Output>();
+                    foreach (var outputInfo in outputInfoList)
+                        outputList.Add(DataProvider.Ins.DB.Outputs.First(x => x.Id == outputInfo.IdOutput));
+
+                    DataProvider.Ins.DB.OutputInfoes.RemoveRange(outputInfoList);
+                    DataProvider.Ins.DB.SaveChanges();
+                    DataProvider.Ins.DB.Outputs.RemoveRange(outputList);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    DataProvider.Ins.DB.Objects.RemoveRange(objectList);
+                    DataProvider.Ins.DB.SaveChanges();
+                    DataProvider.Ins.DB.Supliers.Remove(DataProvider.Ins.DB.Supliers.First(x => x.Id == SelectedItem.Id));
+
+
+                    DataProvider.Ins.DB.SaveChanges();
+                    LoadData();
+                }
+            });
         }
 
-
+        void LoadData()
+        {
+            List = new ObservableCollection<Suplier>(DataProvider.Ins.DB.Supliers);
+        }
     }
 }

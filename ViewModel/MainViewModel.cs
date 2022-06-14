@@ -77,30 +77,60 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
             {
                 UnitWindow wd = new UnitWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
             }
             );
             SuplierCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 SuplierWindow wd = new SuplierWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
             }
             );
             CustomerCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 CustomerWindow wd = new CustomerWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
             }
             );
             ObjectCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 ObjectWindow wd = new ObjectWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
             }
             );
-            UserCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            UserCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 UserWindow wd = new UserWindow();
                 wd.ShowDialog();
+                LoadTonKhoData();
+                var userVM = wd.DataContext as UserViewModel;
+                if (userVM.IsLogout)
+                {
+                    Isloaded = true;
+                    Console.WriteLine(p);
+                    Console.WriteLine("Hello");
+                    Console.WriteLine(p);
+                    if (p == null)
+                        return;
+                    p.Hide();
+                    LoginWindow loginWindow = new LoginWindow();
+                    loginWindow.ShowDialog();
+
+                    if (loginWindow.DataContext == null)
+                        return;
+                    var loginVM = loginWindow.DataContext as LoginViewModel;
+
+                    if (loginVM.IsLogin)
+                    {
+                        p.Show();
+                        LoadTonKhoData();
+                    }
+                    else
+                        p.Close();
+                }    
             }
             );
             InputCommand = new RelayCommand<object>((p) => { return true; }, (p) =>

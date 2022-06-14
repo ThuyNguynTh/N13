@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace Nhom13_Quan_ly_kho_hang.ViewModel
@@ -80,82 +81,86 @@ namespace Nhom13_Quan_ly_kho_hang.ViewModel
             get => _BarCode; set { _BarCode = value; OnPropertyChanged(); }
         }
 
-        private String _Email;
-        public string Email
-        {
-            get => _Email; set { _Email = value; OnPropertyChanged(); }
-        }
-
-        private String _MoreInfo;
-        public string MoreInfo
-        {
-            get => _MoreInfo; set { _MoreInfo = value; OnPropertyChanged(); }
-        }
-
-        private DateTime? _ContractDate;
-        public DateTime? ContractDate
-        {
-            get => _ContractDate; set { _ContractDate = value; OnPropertyChanged(); }
-        }
-
         //Thêm
         public ICommand AddCommand { get; set; }
 
         // Sửa
         public ICommand EditCommand { get; set; }
+
+        public ICommand DeleteCommand { get; set; }
         public ObjectViewModel()
         {
-            List = new ObservableCollection<Model.Object>(DataProvider.Ins.DB.Objects);
-            Unit = new ObservableCollection<Model.Unit>(DataProvider.Ins.DB.Units);
-            Suplier = new ObservableCollection<Model.Suplier>(DataProvider.Ins.DB.Supliers);
+            LoadData();
 
+            AddCommand = new RelayCommand<object>((p) =>
+            {
+                    return true;
+            },(p) =>
+            {
+                var Object = new Model.Object() { DisplayName = DisplayName, BarCode = BarCode, ORCode = ORCode, IdSuplier = SelectedSuplier.Id, IdUnit = SelectedUnit.Id, Id = Guid.NewGuid().ToString()};
+                DataProvider.Ins.DB.Objects.Add(Object);
+                DataProvider.Ins.DB.SaveChanges();
+                List.Add(Object);
+            });
 
-            AddCommand = new RelayCommand<object>
-                (
-                    (p) =>
-                    {
-                    if (SelectedSuplier == null || SelectedUnit == null)
-                            return false;
-                        return true;
+            EditCommand = new RelayCommand<Model.Object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
 
-                    },
-                (p) =>
+            },(p) =>
+            {
+                var Object = DataProvider.Ins.DB.Objects.Where(x => x.Id == SelectedItem.Id).SingleOrDefault(); // lay Object tuong ung
+                Object.DisplayName = DisplayName;
+                Object.BarCode = BarCode; 
+                Object.ORCode = ORCode;
+                Object.IdSuplier = SelectedSuplier.Id;
+                Object.IdUnit = SelectedUnit.Id;
+                DataProvider.Ins.DB.SaveChanges();
+                SelectedItem = Object; 
+            });
+
+            DeleteCommand = new RelayCommand<Model.Object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            }, (p) =>
+            {
+                DialogResult result = System.Windows.Forms.MessageBox.Show("Bạn có chắc chắn muốn xóa đơn nhập không?\nThao tác này sẽ xóa tất cả hàng nhập xuất liên quan.", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
                 {
-                    var Object = new Model.Object() { DisplayName = DisplayName, BarCode = BarCode, ORCode = ORCode, IdSuplier = SelectedSuplier.Id, IdUnit = SelectedUnit.Id, Id = Guid.NewGuid().ToString()};
-                    DataProvider.Ins.DB.Objects.Add(Object);
+                    var inputInfoList = DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == SelectedItem.Id);
+                    IEnumerable<Input> inputList = new List<Input>();
+                    foreach (var inputInfo in inputInfoList)
+                        inputList.Append(DataProvider.Ins.DB.Inputs.First(x => x.Id == inputInfo.IdInput));
+                    DataProvider.Ins.DB.InputInfoes.RemoveRange(inputInfoList);
+                    DataProvider.Ins.DB.Inputs.RemoveRange(inputList);
+
+                    var outputInfoList = DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdObject == SelectedItem.Id);
+                    IEnumerable<Output> outputList = new List<Output>();
+                    foreach (var outputInfo in outputInfoList)
+                        outputList.Append(DataProvider.Ins.DB.Outputs.First(x => x.Id == outputInfo.IdOutput));
+                    DataProvider.Ins.DB.OutputInfoes.RemoveRange(outputInfoList);
+                    DataProvider.Ins.DB.Outputs.RemoveRange(outputList);
+
+                    DataProvider.Ins.DB.Objects.Remove(DataProvider.Ins.DB.Objects.First(x => x.Id == SelectedItem.Id));
+
                     DataProvider.Ins.DB.SaveChanges();
-                    List.Add(Object);
-                });
-
-            EditCommand = new RelayCommand<Model.Object>
-                (
-                    (p) =>
-                    {
-                        if (SelectedItem == null || SelectedSuplier == null || SelectedUnit == null)
-                            return false;
-                        var displayList = DataProvider.Ins.DB.Objects.Where(x => x.Id == SelectedItem.Id);
-                        if (displayList != null && displayList.Count() != 0)
-                        {
-                            return true;
-                        }
-                        else return false;
-
-                    },
-                (p) =>
-                {
-                    var Object = DataProvider.Ins.DB.Objects.Where(x => x.Id == SelectedItem.Id).SingleOrDefault(); // lay Object tuong ung
-                    Object.DisplayName = DisplayName;
-                    Object.BarCode = BarCode; 
-                    Object.ORCode = ORCode;
-                    Object.IdSuplier = SelectedSuplier.Id;
-                    Object.IdUnit = SelectedUnit.Id;
-                    DataProvider.Ins.DB.SaveChanges();
-                    SelectedItem.DisplayName = DisplayName; 
-
-                    OnPropertyChanged();
-                });
+                    LoadData();
+                }
+            });
         }
-
+        
+        void LoadData()
+        {
+            List = new ObservableCollection<Model.Object>(DataProvider.Ins.DB.Objects.OrderBy(x => x.DisplayName));
+            Unit = new ObservableCollection<Model.Unit>(DataProvider.Ins.DB.Units.OrderBy(x => x.DisplayName));
+            Suplier = new ObservableCollection<Model.Suplier>(DataProvider.Ins.DB.Supliers.OrderBy(x => x.DisplayName));
+            SelectedSuplier = Suplier[0];
+            SelectedUnit = Unit[0];
+        }
 
     }
 }

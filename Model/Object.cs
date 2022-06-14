@@ -36,12 +36,44 @@ namespace Nhom13_Quan_ly_kho_hang.Model
             get { return _DisplayName; }
             set { _DisplayName = value; OnPropertyChanged(); }
         }
-        public int IdUnit { get; set; }
-        public int IdSuplier { get; set; }
-        public string ORCode { get; set; }
-        public string BarCode { get; set; }
-    
-        public virtual Suplier Suplier { get; set; }
+        private int _IdUnit;
+
+        public int IdUnit
+        {
+            get { return _IdUnit; }
+            set { _IdUnit = value; }
+        }
+        private int _IdSuplier;
+
+        public int IdSuplier
+        {
+            get { return _IdSuplier; }
+            set { _IdSuplier = value; }
+        }
+
+        private string _ORCode;
+
+        public string ORCode
+        {
+            get { return _ORCode; }
+            set { _ORCode = value; }
+        }
+        private string _BarCode;
+
+        public string BarCode
+        {
+            get { return _BarCode; }
+            set { _BarCode = value; }
+        }
+
+        private Suplier _Suplier;
+
+        public virtual Suplier Suplier
+        {
+            get { return _Suplier; }
+            set { _Suplier = value; }
+        }
+
         public virtual Unit Unit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OutputInfo> OutputInfoes { get; set; }

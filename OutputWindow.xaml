@@ -41,11 +41,11 @@
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <WrapPanel>
                     <ComboBox Margin="5 5 15 5" DisplayMemberPath="DisplayName" ItemsSource="{Binding ObjectList}" SelectedItem="{Binding SelectedObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên vật tư" IsEditable="False" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                    <DatePicker VerticalAlignment="Center" SelectedDate="{Binding DateOutput}" Width="100" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Ngày xuất" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
-                    <TextBox x:Name="txtCount" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignTextBoxBase}"/>
-                    <TextBox x:Name="txtPriceOutput" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Text="{Binding PriceOutput, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá xuất" Style="{StaticResource MaterialDesignTextBoxBase}"/>
+                    <DatePicker VerticalAlignment="Center" SelectedDate="{Binding DateOutput, StringFormat='dd/MM/yyyy'}" Width="100" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Ngày xuất" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
+                    <TextBox x:Name="txtCount" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox x:Name="txtPriceOutput" PreviewTextInput="NumberValidationTextBox" TextChanged="SetZero" Text="{Binding PriceOutput, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá xuất" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                     <ComboBox Margin="5 5 15 5" DisplayMemberPath="DisplayName" ItemsSource="{Binding Customer}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Khách hàng" IsEditable="False" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                    <TextBox Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Trạng thái xuất" Style="{StaticResource MaterialDesignTextBoxBase}"/>
+                    <TextBox Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Trạng thái xuất" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                 </WrapPanel>
             </materialDesign:Card>
 
@@ -59,11 +59,12 @@
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" AlternationCount="1000">
                         <ListView.View>
                             <GridView>
+                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"></GridViewColumn>
                                 <GridViewColumn Header="Vật tư" DisplayMemberBinding="{Binding Object.DisplayName}"></GridViewColumn>
-                                <GridViewColumn Header="Ngày xuất" DisplayMemberBinding="{Binding Output.DateOutput}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày xuất" DisplayMemberBinding="{Binding Output.DateOutput, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                                 <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
                                 <GridViewColumn Header="Giá xuất" DisplayMemberBinding="{Binding OutputPrice}"></GridViewColumn>
                                 <GridViewColumn Header="Khách hàng" DisplayMemberBinding="{Binding Customer.DisplayName}"></GridViewColumn>
