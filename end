@@ -1,0 +1,41 @@
+[33mcommit fe3561c09e20a4efeabee246ed414a9d6b8a6fef[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Cường Lê <Lemanhcuong240201@outlook.com.vn>
+Date:   Sat May 21 23:16:55 2022 +0700
+
+    cap nhat
+
+[33mcommit b8523a5343caac3fb9a3ac7d5f5597217c86c435[m
+Author: ThuyNguynTh <thuy190321@gmail.com>
+Date:   Fri May 20 00:04:54 2022 +0700
+
+    design
+
+[33mcommit c3b3d24c0a795f2a99b6d69af5360c86c7b0a0e6[m
+Author: ThuyNguynTh <thuy190321@gmail.com>
+Date:   Sun May 8 23:53:05 2022 +0700
+
+    Add design
+
+[33mcommit ea94ec2d73d1d33777b73f3893da1557c209f9d0[m
+Author: ThuyNguynTh <thuy190321@gmail.com>
+Date:   Thu Apr 21 20:49:07 2022 +0700
+
+    first
+
+[33mcommit 5f13c79af947b2481039d73a45f3c61ada3f2839[m
+Author: ThuyNguynTh <thuy190321@gmail.com>
+Date:   Thu Apr 21 20:38:07 2022 +0700
+
+    add
+
+[33mcommit 0edcce5f8588e2bc44cb75ea09afb254ac97cda6[m
+Author: HP <HP@LAPTOP-60G5O5GF>
+Date:   Sun Apr 17 13:28:59 2022 +0700
+
+    Add project files.
+
+[33mcommit 7a7187f75dae0dd53951c14ac0810c9159e1e2c7[m
+Author: HP <HP@LAPTOP-60G5O5GF>
+Date:   Sun Apr 17 13:28:57 2022 +0700
+
+    Add .gitignore and .gitattributes.
